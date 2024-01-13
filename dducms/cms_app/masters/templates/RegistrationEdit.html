@@ -1,0 +1,279 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Registration Edit</title>
+
+  <!-- Google Font: Source Sans Pro -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+  <!-- Font Awesome -->
+  
+  <link rel="stylesheet" href="{% static 'plugins/fontawesome-free/css/all.min.css' %}">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="{% static 'dist/css/adminlte.min.css' %}">
+</head>
+<body class="hold-transition sidebar-mini">
+<div class="wrapper">
+  <!-- Navbar -->
+  {% include 'header.html' %}
+  <!-- /.navbar -->
+
+  <!-- Main Sidebar Container -->
+  {% include 'sidebar.html' %}
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1>Registration Edit</h1>
+          </div>
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="#">Home</a></li>
+              <li class="breadcrumb-item active">Registration</li>
+            </ol>
+          </div>
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+        <div class="row">
+          <!-- left column -->
+          <div class="col-md-6">
+            <!-- general form elements -->
+            <div class="card card-primary">
+              <div class="card-header">
+                <h3 class="card-title">Registration</h3>
+              </div>
+              <!-- /.card-header -->
+              <!-- form start -->
+              <form method="POST">
+                <div class="card-body">
+                  <div class="form-group">
+                    <label for="exampleInputEmail1">Name</label>
+                    <input type="text" class="form-control" id="exampleInputName" placeholder="Enter Name" value="{{ emplist.Ename }}" name="Ename">
+                  </div>
+				     <div class="form-group">
+					 <label for="exampleInputEmail1">Gender</label>
+                        <div class="form-check">
+                          
+                          <input class="form-check-input"  value="1" type="radio" name="radio1" {% if emplist.gender == 1 %} checked {% endif %}> 
+                          <label class="form-check-label">Male</label>
+                        </div>
+                        <div class="form-check">
+                          <input class="form-check-input" type="radio"  value="0" name="radio1" {%if emplist.gender == 0 %} checked {% endif %}>
+                          <label class="form-check-label">Female</label>
+                        </div>
+                       
+                      </div>
+				   <div class="form-group">
+                    <label for="exampleInputEmail1">Date of Birth</label>
+                    <input type="Date" class="form-control" id="exampleInputName" placeholder="Enter date" value="{{ emplist.dob }}" name="dob">
+                  </div>
+				   <div class="form-group">
+                        <label>Textarea</label>
+                        <textarea class="form-control" rows="3" placeholder="Enter Address" name="add">{{ emplist.address }}</textarea>
+                      </div>
+				  <div class="form-group">
+                    <label for="exampleInputEmail1">Email</label>
+                    <input type="Email" class="form-control" id="exampleInputName" placeholder="Enter Email" value="{{ emplist.email }}" name="Email">
+                  </div>
+				  <div class="form-group">
+                    <label for="exampleInputEmail1">Mobile</label>
+                    <input type="Number" class="form-control" id="exampleInputName" placeholder="Enter mobile" value="{{ emplist.mobile }}"" name="mobile">
+                  </div>
+				  <div class="form-group">
+                    <label for="exampleInputEmail1">Date of Joinig</label>
+                    <input type="Date" class="form-control" id="exampleInputName" value="{{ emplist.datejoing|date:"d-m-Y"  }}"  name="doj" >
+                  </div>
+                 
+
+                   
+                  </div>
+            
+                </div>
+                <!-- /.card-body -->
+
+                
+              </form>
+            </div>
+			<div class="col-md-6">
+		<div class="card card-success">
+              <div class="card-header">
+                <h3 class="card-title">Upload Photo</h3>
+              </div>
+              <div class="card-body">
+                <div class="form-group">
+                    <label for="exampleInputFile">{{ emplist.Ename }}</label>
+					 <div class="text-center">
+                  <img class="profile-user-img img-fluid img-circle"
+                  {% if  emplist.Eimage %}
+                       src="{{ emplist.Eimage.url }}"{% else %}
+                       src="{% static 'dist/img/noimage.png' %}"
+                       alt="User profile picture">{% endif %}
+                </div>
+                    <div class="input-group">
+                      <div class="custom-file">
+                        <input type="file" class="custom-file-input" id="exampleInputFile">
+                        <label class="custom-file-label" for="exampleInputFile">Choose file</label>
+                      </div>
+                      <div class="input-group-append">
+                        <span class="input-group-text">Upload</span>
+                      </div>
+                    </div>
+					<div class="form-group">
+                        <label>Qualification</label>
+                        <select class="custom-select">
+                          <option value="0">Select</option>
+                          {% for ql in qualist %}
+                          <option {% if emplist.qualid_id == ql.id %} selected {% endif %} value="{{ ql.id }}">{{ ql.qname }}</option>{% endfor %}
+                          
+                        </select>
+                      </div>
+					  <div class="form-group">
+                        <label>Designation</label>
+                        <select class="custom-select">
+                          <option  value="0">Select</option>
+                          {% for des in deslist %}
+                          <option {% if emplist.desid_id == des.id %}selected {% endif %} value="{{ des.id }}">{{ des.designation }}</option>
+                         {% endfor %}
+                         
+                        </select>
+                      </div>
+					   
+				  <div class="form-group">
+                    <label for="exampleInputEmail1">Salary</label>
+                    <input type="Number" class="form-control" id="exampleInputName" placeholder="Enter salary" value="{{ emplist.salary }}" name="sal">
+                  </div>
+					<div class="form-group">
+                    <label for="exampleInputEmail1">Salary day</label>
+                    <input type="dat" class="form-control" id="exampleInputName" placeholder="Enter salary day" value="{{ emplist.salaryday|date:"d-m-Y"  }}" name="salday">
+                  </div>
+				  <div class="form-group">
+					 <label for="exampleInputEmail1">Status</label>
+                        <div class="form-check">
+						
+                          <input class="form-check-input" type="radio" name="radio1" {% if emplist.status == 1 %} checked {%  endif %}>
+                          <label class="form-check-label">Active</label>
+                        </div>
+                        <div class="form-check">
+                          <input class="form-check-input" type="radio" name="radio1" {% if emplist.status == 0 %} checked {%  endif %}>
+                          <label class="form-check-label">Deactive</label>
+                        </div>
+						
+                <div class="card-footer">
+                  <button type="submit"  class="btn btn-primary">Submit</button>
+                </div>
+                       
+                      </div>
+              </div>
+              <!-- /.card-body -->
+            </div>
+              <!-- /.card-header -->
+                
+                
+                  
+                </div>
+				</div>
+                
+                
+                  
+                </div>
+                
+                </div>
+                
+                 
+                </div>
+            
+                  
+                </div>
+              </div>
+              <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+
+            <!-- Input addon -->
+      
+             
+                
+              </div>
+             
+            
+                 
+                    
+                  </div>
+
+                </div>
+
+            
+
+                </div>
+
+         
+
+         
+               
+                  
+                </div>
+
+       
+              
+
+               
+
+         
+         
+              </div>
+              <!-- /.card-body -->
+            </div>
+            
+              
+     
+    
+         
+                      
+                    </div>
+                  </div>
+              
+                    
+                  </div>
+ 
+                  
+                    
+                  </div>
+                </div>
+                <!-- /.card-body -->
+               
+              </form>
+            </div>
+            <!-- /.card -->
+
+          </div>
+        
+         
+            </div>
+           
+     
+            
+            </div>
+            <!-- /.card -->
+          </div>
+          <!--/.col (right) -->
+        </div>
+        <!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+  {%  include 'footer.html' %}
+</body>
+</html>

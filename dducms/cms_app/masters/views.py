@@ -269,6 +269,8 @@ def productlist(request):
 def amlogout(request):
     auth.logout(request)
     return redirect('/accounts/login/')
+def changepwd(request):
+    return render(request,'changepwd.html')
 
 
 

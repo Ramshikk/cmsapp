@@ -33,7 +33,8 @@ urlpatterns = [
     path('product',views.addproduct),
     path('productlist',views.productlist),
     path('accounts/',include("django.contrib.auth.urls"),name="login"),
-    path('logout',views.amlogout,name='log')
+    path('logout',views.amlogout,name='log'),
+    path('changepwd',views.changepwd)
 ]
 if settings.DEBUG:  
         urlpatterns += static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)  
